@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography - Jinfan Zhou</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .photography-page {
+            padding: 2rem 0;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        
+        .photography-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .photography-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .photography-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #004D8C;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #02173D;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-image {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        .gallery-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+        
+        .gallery-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 1200px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+        }
+        
+        .modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-info {
+            margin-top: 20px;
+            color: white;
+        }
+        
+        .modal-info h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .modal-info p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.3s ease;
+        }
+        
+        .close:hover {
+            color: #004D8C;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .photography-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .gallery-image {
+                height: 250px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 10px;
+            }
+            
+            .modal-info h3 {
+                font-size: 1.5rem;
+            }
+            
+            .modal-info p {
+                font-size: 1rem;
+            }
+            
+            .close {
+                top: 10px;
+                right: 20px;
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="photography-page">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Homepage
+            </a>
+            
+            <div class="photography-header">
+                <h1>Photography</h1>
+                <p>Capturing moments and exploring the world through my lens. A collection of my favorite photographs from various travels and experiences.</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openModal('gallery/DSC06046-min.jpg', 'Mountain Landscapes', 'Capturing the grandeur of mountain ranges and natural formations')">
+                    <div class="gallery-image">
+                        <img src="gallery/DSC06046-min.jpg" alt="Landscape Photography" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">Mountain Landscapes</h3>
+                            <p class="gallery-description">Capturing the grandeur of mountain ranges and natural formations</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openModal('gallery/DSC06068-min.jpg', 'Forest Details', 'Exploring the intricate beauty of forest ecosystems')">
+                    <div class="gallery-image">
+                        <img src="gallery/DSC06068-min.jpg" alt="Nature Photography" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">Forest Details</h3>
+                            <p class="gallery-description">Exploring the intricate beauty of forest ecosystems</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openModal('gallery/DSC06092-min.jpg', 'Urban Architecture', 'Modern cityscapes and architectural marvels')">
+                    <div class="gallery-image">
+                        <img src="gallery/DSC06092-min.jpg" alt="Urban Photography" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">Urban Architecture</h3>
+                            <p class="gallery-description">Modern cityscapes and architectural marvels</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openModal('gallery/DSC06309-min.jpg', 'Portrait Studies', 'Human expressions and character portraits')">
+                    <div class="gallery-image">
+                        <img src="gallery/DSC06309-min.jpg" alt="Portrait Photography" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">Portrait Studies</h3>
+                            <p class="gallery-description">Human expressions and character portraits</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openModal('gallery/DSC06377-min.jpg', 'Abstract Forms', 'Exploring shapes, patterns, and visual abstractions')">
+                    <div class="gallery-image">
+                        <img src="gallery/DSC06377-min.jpg" alt="Abstract Photography" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">Abstract Forms</h3>
+                            <p class="gallery-description">Exploring shapes, patterns, and visual abstractions</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openModal('gallery/DSC06406-min.jpg', 'Street Life', 'Candid moments and daily life in urban environments')">
+                    <div class="gallery-image">
+                        <img src="gallery/DSC06406-min.jpg" alt="Street Photography" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h3 class="gallery-title">Street Life</h3>
+                            <p class="gallery-description">Candid moments and daily life in urban environments</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for full-size images -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="" class="modal-img">
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(imageSrc, title, description) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
