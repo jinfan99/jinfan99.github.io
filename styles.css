@@ -238,6 +238,18 @@ section {
     text-align-last: left;
 }
 
+.about-text a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.about-text a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
 .about-actions {
     margin-top: 2rem;
     display: flex;
