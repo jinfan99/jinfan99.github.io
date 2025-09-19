@@ -203,6 +203,7 @@ section {
     margin-bottom: 3rem;
     color: #333;
     position: relative;
+    width: 100%;
 }
 
 .section-title::after {
@@ -225,6 +226,7 @@ section {
 .about-content {
     max-width: 800px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .about-text p {
@@ -232,6 +234,8 @@ section {
     margin-bottom: 1.5rem;
     color: #555;
     line-height: 1.8;
+    text-align: justify;
+    text-align-last: left;
 }
 
 .about-actions {
@@ -239,6 +243,7 @@ section {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .btn {
